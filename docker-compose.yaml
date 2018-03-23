@@ -1,0 +1,26 @@
+web:
+    image: nginx:latest
+    ports:
+        - "80:80"
+    volumes:
+        - ./code:/code
+        - ./cryptocloud.conf:/etc/nginx/conf.d/cryptocloud.conf
+    links:
+        - php
+php:
+    build: ./php_docker
+    volumes:
+        - ./code:/code
+    links:
+        - mysql
+    environment:
+      MYSQL_DATABASE: cryptocloud
+      MYSQL_USER: cryptoclouduser
+      MYSQL_PASSWORD: cryptocloudpw
+mysql:
+  image: mysql:5.7
+  environment:
+    MYSQL_ROOT_PASSWORD: root
+    MYSQL_DATABASE: cryptocloud
+    MYSQL_USER: cryptoclouduser
+    MYSQL_PASSWORD: cryptocloudpw
