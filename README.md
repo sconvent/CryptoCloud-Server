@@ -1,3 +1,5 @@
 # CryptoCloud Server
 
-uses PHP 5.6 or higher and MySQL. 
+Provides an implementation of a block storage for encrypted data based on PHP and MySQL.
+
+A docker-compose.yaml is provided.

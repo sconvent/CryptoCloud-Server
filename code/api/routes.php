@@ -97,6 +97,18 @@ Flight::route('GET /block/new/@time', function($time)
     echo json_encode(block_get_new($time));
 });
 
+
+//dev
+Flight::route('GET /test', function()
+{
+    require_once("../test.php");
+});
+
+Flight::route('GET /reset', function()
+{
+    require_once("../reset.php");
+});
+
 //debug
 /*
 Flight::map('notFound', function(){
