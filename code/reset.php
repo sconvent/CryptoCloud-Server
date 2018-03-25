@@ -16,6 +16,4 @@ $query = file_get_contents('../cryptoCloudModel.sql');
 #echo $query
 $database->query($query);
 
-var_dump( $database->error() );
-
 ?>
