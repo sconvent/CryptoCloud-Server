@@ -47,6 +47,7 @@ CREATE TABLE IF NOT EXISTS `cryptoCloud`.`block` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `user_id` INT NOT NULL,
   `last_changed` INT NOT NULL,
+  `content` BLOB NOT NULL,
   `deleted` TINYINT(1) NULL DEFAULT false,
   PRIMARY KEY (`id`),
   INDEX `fk_block_user1_idx` (`user_id` ASC),

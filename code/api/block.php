@@ -6,12 +6,8 @@ function block_create($data)
 		return ['success' => false];
 	global $database, $user_id;
 
-	$database->insert('block', ['user_id' => $user_id, 'last_changed' => time()]);
+	$database->insert('block', ['user_id' => $user_id, 'last_changed' => time(), 'content' => $data]);
 	$block_id = $database->max('block', 'id');
-
-	$block_file = fopen('../blocks/'.sprintf('%08d', $block_id).'.block', "w") or die('Unable to open file!');
-	fwrite($block_file, $data);
-	fclose($block_file);
 
 	$result = new stdClass();
 	$result->success = true;
@@ -25,10 +21,10 @@ function block_get($block_id)
 		return ['success' => false];
 	global $database, $user_id;
 
-	$block = $database->get('block', ['user_id', 'last_changed'], ['id' => $block_id]);
+	$block = $database->get('block', ['user_id', 'last_changed', 'content'], ['id' => $block_id]);
 	if($block['user_id'] != $user_id)
 		return ['success' => false];
-	return ['success' => true, 'data' => file_get_contents('../blocks/'.sprintf('%08d', $block_id).'.block'), 'last_changed' => $block['last_changed']];
+	return ['success' => true, 'data' => $block['content'], 'last_changed' => $block['last_changed']];
 }
 
 function block_update($block_id, $data)
@@ -40,11 +36,7 @@ function block_update($block_id, $data)
 	$block = $database->get('block', ['user_id'], ['id' => $block_id]);
 	if($block['user_id'] != $user_id)
 		return ['success' => false];
-	$database->update('block', ['last_changed' => time()], ['id'=>$block_id]);
-
-	$block_file = fopen('../blocks/'.sprintf('%08d', $block_id).'.block', "w") or die('Unable to open file!');
-	fwrite($block_file, $data);
-	fclose($block_file);
+	$database->update('block', ['last_changed' => time(), 'content' => $data], ['id'=>$block_id]);
 
 	$result = new stdClass();
 	$result->success = true;
@@ -61,10 +53,6 @@ function block_delete($block_id)
 	if($block['user_id'] != $user_id)
 		return ['success' => false];
 	$database->update('block', ['deleted' => true], ['id'=>$block_id]);
-
-	$block_file = fopen('../blocks/'.sprintf('%08d', $block_id).'.block', "w") or die('Unable to open file!');
-	fwrite($block_file, '');
-	fclose($block_file);
 
 	$result = new stdClass();
 	$result->success = true;

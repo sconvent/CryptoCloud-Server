@@ -99,10 +99,6 @@ Flight::route('GET /block/new/@time', function($time)
 
 
 //dev
-Flight::route('GET /test', function()
-{
-    require_once("../test.php");
-});
 
 Flight::route('GET /reset', function()
 {
