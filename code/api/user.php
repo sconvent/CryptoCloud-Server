@@ -1,25 +1,8 @@
 <?php
 
-function user_generate_client_salt()
-{
-	global $database; 
-	$auth_client_salt = randomString(22);
-
-	$database->insert('salt', [
-		'auth_client_salt' => $auth_client_salt
-	]);
-
-	$result = ['success' => true, 'auth_client_salt' => $auth_client_salt];
-	return $result;
-}
-
 function user_create($name, $auth_client_salt, $client_hash, $enc_client_salt)
 {
 	global $database; 
-
-	$database_salt = $database->get('salt',['id'],['auth_client_salt' => $auth_client_salt]);
-	if(is_null($database_salt))
-		return ['success' => false];
 
 	$auth_server_salt = randomString(22);
 	$options = ['salt' => $auth_server_salt, 'cost' => 12];

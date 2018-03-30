@@ -39,15 +39,8 @@ function tests(assert)
 function createUserTest()
 {
     QUnit.test('createUserTest', function(assert) {
-        get('../api/salt/');
-        assert.ok(data.hasOwnProperty('success'), JSON.stringify(data) + ' has property: success');
-        assert.equal(data.success, true, 'successful');
-        assert.ok(data.hasOwnProperty('auth_client_salt'), JSON.stringify(data) + ' has property: auth_client_salt');
-        assert.ok(data.auth_client_salt.length == 22, 'auth_client_salt has correct length');
-        var auth_client_salt = data.auth_client_salt;
-
         username = Date.now();
-        post('../api/user/', {name:username, auth_client_salt:auth_client_salt, auth_client_hash:'68MBk3FUXTkwrQ9UULZDgGXB8g2I', enc_client_salt:'abcdefghijklmnopqrstuv'});
+        post('../api/user/', {name:username, auth_client_salt:'1234567891234567891234', auth_client_hash:'68MBk3FUXTkwrQ9UULZDgGXB8g2I', enc_client_salt:'abcdefghijklmnopqrstuv'});
         assert.ok(data.hasOwnProperty('success'), JSON.stringify(data) + ' has property: success');
         assert.equal(data.success, true, 'successful');
         token = data.token;

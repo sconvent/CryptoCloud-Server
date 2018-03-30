@@ -62,7 +62,7 @@ function block_delete($block_id)
 function block_get_new($time)
 {
 	if(!check_authentication())
-		return ['success' => false];
+		return ['success' => false];	
 	global $database, $user_id;
 
 	$result = $database->get('block', ['block_id'], ['last_changed[>]' => $time]);

@@ -13,11 +13,6 @@ Flight::route('POST /access', function()
     echo json_encode(access_create($_POST['name'], $_POST['auth_client_hash']));
 });
 
-Flight::route('GET /salt', function()
-{
-    echo json_encode(user_generate_client_salt());
-});
-
 Flight::route('POST /user', function()
 {
     if(!check_post_headers(['name', 'auth_client_salt', 'auth_client_hash', 'enc_client_salt']))
