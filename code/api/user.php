@@ -23,7 +23,7 @@ function user_create($name, $auth_client_salt, $client_hash, $enc_client_salt)
 function user_get($name)
 {
 	global $database;
-	$result = $database->get('user', ['auth_client_salt', 'auth_server_salt'], ['name' => $name]);
+	$result = $database->get('user', ['auth_client_salt'], ['name' => $name]);
 	$result['success'] = true;
 	return $result;
 }
